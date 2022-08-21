@@ -79,6 +79,7 @@ namespace UrlShortener2.Controllers
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
 
                 _auth.UserInfos.Add(newUser);
+                _auth.UserRoles.Add(new UserRole() { RoleId=2, UserId=newUser.Id});
                 _auth.SaveChanges();
                 return Ok(new AuthenticatedResponse { Token = tokenString });
             }

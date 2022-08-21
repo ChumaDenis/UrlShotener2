@@ -10,7 +10,6 @@ namespace UrlShortener2.Models.User
         [Required]
         public string UserId { get; set; } = "";
 
-        public Boolean IsAdmin { get; set; } = false;
 
     }
 }

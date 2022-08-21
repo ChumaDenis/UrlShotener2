@@ -16,7 +16,6 @@ namespace UrlShortener2.Controllers
         {
             _logger = logger;
             _context = context;
-                
         }
 
         [HttpGet]
@@ -38,12 +37,17 @@ namespace UrlShortener2.Controllers
             {
                 return BadRequest();
             }
-            UrlValidator validator = new UrlValidator(this.Request.Host.ToString() + this.Request.Path.ToString());
-            _context.UrlInfos.Add(UrlManager.Create(urlInfo, validator));
-            _context.SaveChanges();
-
-            return Ok(_context.UrlInfos.ToList());
-
+            UrlValidator validator = new UrlValidator("https://"+ this.Request.Host.ToString() + this.Request.Path.ToString()+"/");
+            if(_context.UrlInfos.ToList().Find(x=>x.Url== urlInfo.Url) == null)
+            {
+                _context.UrlInfos.Add(UrlManager.Create(urlInfo, validator));
+                _context.SaveChanges();
+                return Ok(_context.UrlInfos.ToList());
+            }
+            return BadRequest("This link already exists");
         }
+
+
+
     }
 }

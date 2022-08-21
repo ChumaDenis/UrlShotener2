@@ -12,7 +12,7 @@ using UrlShortener2.Context;
 namespace UrlShortener2.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20220821132450_Auth")]
+    [Migration("20220821222043_Auth")]
     partial class Auth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,8 +32,19 @@ namespace UrlShortener2.Migrations.AuthDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("RoleName")
+                    b.Property<string>("ConcurrencyStamp")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalisedName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -66,9 +77,6 @@ namespace UrlShortener2.Migrations.AuthDb
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");

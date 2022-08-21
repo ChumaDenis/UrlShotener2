@@ -1,4 +1,7 @@
-﻿namespace UrlShortener2.Models
+﻿using Microsoft.AspNetCore.WebUtilities;
+using System.Buffers.Text;
+
+namespace UrlShortener2.Models
 {
     public static class UrlManager
     {
@@ -6,7 +9,7 @@
         {
             UrlInfo _urlInfo = new UrlInfo();
             
-            _urlInfo.Id = Guid.NewGuid().ToString();
+            _urlInfo.Id = WebEncoders.Base64UrlEncode(Guid.NewGuid().ToByteArray());
 
             _urlInfo.Url = urlInfo.Url;
 

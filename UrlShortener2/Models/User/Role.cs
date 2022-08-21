@@ -1,12 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using Microsoft.AspNetCore.Identity;
+
 namespace UrlShortener2.Models.User
 {
-    public class Role
+    public class Role:IdentityRole
     {
         [Key]
-        public int Id { get; set; }= (new Random()).Next();
+        public int Id { get; set; }
         [Required]
-        public string RoleName { get; set; }
+        public string Name { get; set; }
+        [Required]
+        public string NormalisedName { get; set; }
+        public string ConcurrencyStamp { get; set; }
     }
 }
